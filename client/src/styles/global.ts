@@ -9,6 +9,19 @@ export default createGlobalStyle`
         border: none;
     }
 
+    @media(max-width: 1080px) {
+    html {
+        font-size: 93.75%;
+    }
+}
+
+    @media(max-width: 720px) {
+        html {
+            font-size: 87.5%;
+        }
+    }
+
+
     body {
         background-color: rgba(249,250,251, 1);
     }
