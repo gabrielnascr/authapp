@@ -1,18 +1,18 @@
-import styled from "styled-components/macro";
+import React, {  ButtonHTMLAttributes } from 'react';
 
-const Button = styled.button`
-  width: 100%;
-  padding: 0.6rem;
-  border-radius: 5px;
-  margin-top: 1rem;
-  outline-color: #b4ffd6;
+import { ButtonSpinner, Container } from './styles';
 
-  color: white;
-  font-weight: 600;
-  background-color: #30ba73;
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode,
+  loading?: boolean
+}
 
-  cursor: pointer;
-  transition: all 0.5s;
-`
+const Button = ({ children, loading, ...rest}: Props) => {
+  return (
+    <Container disabled={loading} {...rest}>
+      {loading ? <ButtonSpinner /> : children}
+    </Container>
+  );
+}
 
 export default Button;

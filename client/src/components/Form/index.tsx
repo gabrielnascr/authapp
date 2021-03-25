@@ -6,7 +6,7 @@ interface Props extends FormHTMLAttributes<HTMLFormElement> {
   children: React.ReactNode;
 }
 
-const Form = ({ children, onSubmit }: Props) => {
+const Form = ({ children, onSubmit, ...rest }: Props) => {
   return (
     <Container>
       <Content onSubmit={onSubmit}>

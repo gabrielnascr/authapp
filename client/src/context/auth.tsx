@@ -1,5 +1,8 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import api from "../services/api";
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css'; 
 
 interface Props {
   children: React.ReactNode;
@@ -21,13 +24,14 @@ function AuthProvider({ children }: Props) {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({})
 
+
   async function signIn(email: string, password: string) {
     setLoading(true);
 
     const storagedUser = localStorage.getItem("@authapp:user");
     const storagedToken = localStorage.getItem("@authapp:token");
 
-    if(storagedToken && !storagedUser) {
+    if (storagedToken && !storagedUser) {
       const { data } = await api.get('/me')
 
       localStorage.setItem('@authapp:user', JSON.stringify(user))
@@ -49,17 +53,22 @@ function AuthProvider({ children }: Props) {
       setLoading(false)
 
     } catch (error) {
-      console.log(error)
+      toast.error(error.message)
+      setLoading(false)
     }
 
   }
 
   async function logout() {
+    setLoading(true)
+
     setUser({});
     setSigned(false)
 
     localStorage.removeItem('@authapp:token')
     localStorage.removeItem('@authapp:user')
+    setLoading(false)
+
   }
 
   return (
@@ -69,4 +78,14 @@ function AuthProvider({ children }: Props) {
   )
 }
 
-export { AuthContext, AuthProvider};
+function useAuth(): AuthContextData {
+  const context = useContext(AuthContext);
+
+  if (!context) {
+    throw new Error('')
+  }
+
+  return context;
+}
+
+export { useAuth, AuthProvider };
