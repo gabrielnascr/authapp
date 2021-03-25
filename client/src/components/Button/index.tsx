@@ -1,16 +1,18 @@
-import React from 'react';
-import styles from '../../styles/components/Button.module.css'
+import styled from "styled-components/macro";
 
-interface Props {
-    children: React.ReactNode;
-}
+const Button = styled.button`
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 5px;
+  margin-top: 1rem;
+  outline-color: #b4ffd6;
 
-const Button = ({ children }: Props) => {
-  return (
-      <button type="submit" className={styles.primary}>
-        {children}
-      </button>
-  )
-}
+  color: white;
+  font-weight: 600;
+  background-color: #30ba73;
+
+  cursor: pointer;
+  transition: all 0.5s;
+`
 
 export default Button;

@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import Button from '../../components/Button';
-import styles from '../../styles/pages/Login.module.css'
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+import { Container, Header } from './styles';
+
+import Input from '../../components/Input';
+import Button from '../../components/Button/';
+import Form from '../../components/Form';
 
 const schema = yup.object().shape({
   email: yup.string().email('O e-mail deve ser válido').required('Esse campo é obrigatório'),
@@ -21,46 +25,35 @@ const Login = () => {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.loginHeader}>
+    <Container>
+      <Header>
         <h3>Platform Name</h3>
-      </div>
-      <div className={styles.loginWrapper}>
-        <form onSubmit={handleSubmit(onSubmit)} className={styles.loginForm}>
-          <div>
-            <label htmlFor="email">
-              E-mail
-            </label>
-            <div>
-              <input
-                type="text"
-                placeholder="Digite seu email"
-                id="email" ref={register}
-                name="email"
-              />
-              <p className='text-error'>{errors.email?.message}</p>
-            </div>
+      </Header>
+      <div>
 
-          </div>
-          <div>
-            <label htmlFor="password">
-              Senha
-            </label>
-            <div>
-              <input
-                type="password"
-                placeholder="Digite sua senha"
-                id="password" ref={register}
-                name="password"
-              />
-              <p className='text-error'> {errors.password?.message} </p>
-            </div>
-
-          </div>
-          <Button> Entrar </Button>
-        </form>
       </div>
-    </div>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          title="E-mail"
+          name="email"
+          type="email"
+          placeholder="Digite seu email"
+          register={register}
+          errors={errors.email}
+        />
+
+        <Input
+          title="Senha"
+          name="password"
+          type="password"
+          placeholder="Digite sua senha"
+          register={register}
+          errors={errors.password}
+        />
+
+        <Button> Entrar </Button>
+      </Form>
+    </Container>
   );
 }
 
